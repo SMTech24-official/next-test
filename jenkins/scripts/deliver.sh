@@ -18,6 +18,9 @@ pm2 save
 set +x
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
+chmod +x "$DIR/notify.sh"
+
+# Pass the STATUS to notify.sh
 "$DIR/notify.sh" "$STATUS"
 
 echo ''
