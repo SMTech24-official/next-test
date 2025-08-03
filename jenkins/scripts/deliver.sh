@@ -17,8 +17,8 @@ sleep 2
 pm2 save
 set +x
 
-echo "Deployment $STATUS"
-./notify.sh "$STATUS"
+DIR="$(cd "$(dirname "$0")" && pwd)"
+"$DIR/notify.sh" "$STATUS"
 
 echo ''
 echo '✅ The app is running at: http://localhost:4000'
