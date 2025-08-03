@@ -1,23 +1,24 @@
 #!/usr/bin/env sh
-set -e  # Exit immediately if a command exits with a non-zero status
+set -e
 
-echo '📦 Building the NestJS application...'
+echo '📦 Building the NextJS application...'
 set -x
 npm run build
 set +x
 
 echo '🚀 Starting the production server with PM2...'
 set -x
-
-# Restart the app using PM2 ecosystem config
-pm2 restart ecosystem.config.js
-
-# Give PM2 some time to spin up
+if pm2 restart ecosystem.config.js; then
+    STATUS="successful"
+else
+    STATUS="unsuccessful"
+fi
 sleep 2
-
-# Save the process list for startup
 pm2 save
 set +x
 
+echo "Deployment $STATUS"
+./notify.sh "$STATUS"
+
 echo ''
-echo '✅ The app is running at: http://localhost:6161'
+echo '✅ The app is running at: http://localhost:4000'
